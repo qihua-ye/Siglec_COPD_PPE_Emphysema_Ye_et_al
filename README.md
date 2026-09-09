@@ -4,9 +4,8 @@ This repository contains the analysis pipelines used in the study:
 
 Ye et al.  
 Siglec-F Protects Against Elastase-Induced Lung Inflammation and Emphysema in Mice  
-DOI: https://doi.org/10.1101/2025.09.16.674299
 
-The purpose of this repository is to provide transparent, reproducible code for the bulk RNA-seq and histological image analyses described in the manuscript.
+The purpose of this repository is to provide transparent, reproducible code for the bulk RNA-seq analyses described in the manuscript.
 
 ---
 
@@ -20,7 +19,7 @@ This section includes the complete pipeline that processes raw bulk RNA-seq read
 
 ### Relation to Manuscript
 
-Quantitative outputs derived from bulk RNA-seq analyses are reported in Figure 5 of the manuscript.
+Quantitative outputs derived from bulk RNA-seq analyses are reported in Figure 6 of the manuscript.
 
 ---
 
@@ -29,7 +28,7 @@ Quantitative outputs derived from bulk RNA-seq analyses are reported in Figure 5
 - Sequencing platform: DNBSeq-T7 (MGI/Complete Genomics)
 - Read type: Paired-end, 100 bp
 - Depth: ~80 million total reads per sample
-- Total samples: 27
+- Total samples: 12
 
 ---
 
@@ -53,7 +52,7 @@ Quantitative outputs derived from bulk RNA-seq analyses are reported in Figure 5
 - RNA-seq strandedness was assessed using Picard CollectRnaSeqMetrics (v2.27.5).
 
 ### Gene Quantification and Filtering
-- Raw gene-level counts were filtered to retain genes with >10 raw counts in at least 10 of 27 samples.
+- Raw gene-level counts were filtered to retain genes with >10 raw counts in at least 10 of 12 samples.
 
 ### Differential Expression Analysis
 - Normalization and differential expression analysis were performed using DESeq2 (v1.38.2) in R (v4.2.2).
@@ -70,9 +69,9 @@ Quantitative outputs derived from bulk RNA-seq analyses are reported in Figure 5
 
 | File | Description |
 |------|-------------|
-| `Trimming_Cutadapt_upload.sh` | Adapter trimming and quality filtering |
-| `STAR_alignment_upload.sh` | Alignment to GRCm38/mm10 |
-| `Picard_tool_upload.sh` | RNA-seq strandedness assessment |
+| `Trimming_Cutadapt.sh` | Adapter trimming and quality filtering |
+| `STAR_alignment.sh` | Alignment to GRCm38/mm10 |
+| `Picard_tool.sh` | RNA-seq strandedness assessment |
 | `deseq_gsea_rcode.R` | DESeq2 analysis, GSEA, and visualization |
 
 ---
@@ -84,87 +83,6 @@ Quantitative outputs derived from bulk RNA-seq analyses are reported in Figure 5
 - GSEA results at different time points
 - Pathway heatmaps reported in the manuscript
 
----
-
-# Qupath_codes
-
-## Overview
-
-This section describes the quantitative histological image analysis pipeline used to quantify Mmp8 protein expression in lavaged airspace macrophages (AMs) from WT and KO mice at baseline and day 21 post-elastase.
-
----
-
-### Relation to Manuscript
-
-Quantification derived from this analysis is reported in Figure E7.
-
----
-
-## Imaging Data Overview
-
-- Input: IHC staining on cytospins of lavaged airspace macrophages  
-- Target: Mmp8 (DAB)
-- Imaging modality: Brightfield microscopy
-- Microscope: Olympus BX63
-- Magnification: 60×
-- Quantification: 150–300 AMs per mouse
-- Sample size: n = 4–5 mice per group
-
----
-
-## Experimental Quantification Summary
-
-- Mmp8 positivity was defined as punctate cytoplasmic granules with DAB-positive signal above background.
-- Mmp8 positivity was determined by two independent, blinded investigators.
-- The % of Mmp8-positive AMs was calculated per mouse as the number of positive AMs divided by the total number of AMs counted.
-- Mmp8-positive area per cell was quantified using the same images in QuPath.
-
----
-
-## Software Requirements
-
-- QuPath (v0.4.4)
-
----
-
-## Image Analysis Workflow
-
-Image analysis in QuPath followed the workflow described in the manuscript:
-
-- Images were analyzed using the H&E-DAB image type.
-- Fixed nuclear, DAB, and background thresholds were defined using a representative positive sample and applied uniformly across all images.
-- Cells were automatically detected across the full field of view based on optical density.
-- Automated cell detection results were manually reviewed for accuracy.
-- Subcellular analysis with DAB spot detection was used to estimate DAB-positive area per cell.
-
----
-
-## QuPath Script Contents
-
-The Groovy script `Qupath_cell_selection_and_subcellular_selection_dry_GitHub.groovy` performs automated cell detection across the full field of view, followed by DAB-based subcellular spot detection to quantify Mmp8-positive area on a per-cell basis. The script exports per-cell measurement data from QuPath for downstream statistical analysis.
-
-The R script `Qupath_Mmp8_Data_Wrangling_Simplified.R` is used for post-processing of the QuPath output. Because the raw measurement tables exported from QuPath are hierarchical in structure, this script aggregates the data to calculate the summed Mmp8-positive area per cell, generating analysis-ready tables for statistical comparisons.
-
-All scripts assume consistent image acquisition parameters and predefined threshold values applied uniformly across all samples.
-
----
-
-## Expected Outputs
-
-- Per-cell quantitative measurement tables (`.csv`)
-- Mmp8-positive area per AM
-- Summary metrics used for statistical analysis and figure generation in the manuscript
-
----
-
-## Usage Notes
-
-- Scripts are intended to be executed within an active QuPath project.
-- Images must be imported using the H&E-DAB image type.
-- Threshold values were fixed using a representative positive sample; adjustment may be required to account for staining variability across experimental batches.
-- Manual review of automated cell detection is required to ensure accuracy.
-
----
 
 ## Data Availability
 
@@ -174,9 +92,6 @@ Raw bulk RNA-seq data are publicly available in the NCBI Gene Expression Omnibus
 GEO accession: GSE307353  
 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE307353
 
-### Histological Imaging Data
-Raw immunohistochemistry (IHC) images and QuPath-derived measurement data used for Mmp8 quantification are not deposited in a public repository due to file size and data management constraints. These data are available from the corresponding authors upon reasonable request.
-
 ---
 
 ## Citation
@@ -185,7 +100,6 @@ If you use this code, please cite:
 
 Ye et al.  
 Siglec-F Protects Against Elastase-Induced Lung Inflammation and Emphysema in Mice  
-DOI: https://doi.org/10.1101/2025.09.16.674299
 
 ---
 
