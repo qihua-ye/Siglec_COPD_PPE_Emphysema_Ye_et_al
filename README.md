@@ -13,7 +13,7 @@ The purpose of this repository is to provide transparent, reproducible code for 
 
 ## Overview
 
-This section includes the complete pipeline that processes raw bulk RNA-seq reads to identify differentially expressed genes (DEGs) and enriched biological pathways when comparing wild-type (WT) vs. Siglec-F-knockout (KO) resident airspace macrophages (RAMs) at different time points following elastase-induced lung inflammation and emphysema.
+This section includes the complete pipeline that processes raw bulk RNA-seq reads to identify differentially expressed genes (DEGs) and enriched biological pathways when comparing wild-type (WT) vs. Siglec-F-knockout (KO) resident airspace macrophages (RAMs) at naive state (day 0) and day 21 following elastase-induced lung inflammation and emphysema.
 
 ---
 
