@@ -40,7 +40,7 @@ Quantitative outputs derived from bulk RNA-seq analyses are reported in Figure 6
 - Gene-level quantification
 - Differential expression analysis
 - Gene set enrichment analysis (GSEA)
-- Visualization of key pathways
+- Visualization of pathway of interest: ECM degradation
 
 ---
 
@@ -79,8 +79,8 @@ Quantitative outputs derived from bulk RNA-seq analyses are reported in Figure 6
 ## Expected Outputs
 
 - Normalized count matrices
-- DEG results at different time points
-- GSEA results at different time points
+- DEG results on day 0 and 21
+- GSEA results at day 0 and 21
 - Pathway heatmaps reported in the manuscript
 
 
